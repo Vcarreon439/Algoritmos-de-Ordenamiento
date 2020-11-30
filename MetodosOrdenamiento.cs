@@ -42,7 +42,6 @@ namespace EDU4_Algoritmos
             arreglo[valor2] = temporal;
         }
 
-
         /// <summary>
         /// Método ShellSort implementado como extensión
         /// </summary>
@@ -68,6 +67,63 @@ namespace EDU4_Algoritmos
 
                 d = d / 2;
             }
+        }
+
+        public static void RadixSort<T>(this T[] arreglo) where T : IComparable<T> 
+        {
+            int[] temp = new int[arreglo.Length];
+
+            for (int shift = 31; shift > -1; shift --)
+            {
+                int j = 0;
+
+                for (int i = 0; i < arreglo.Length; i++)
+                {
+                    bool mover = (Convert.ToInt32(arreglo[i]) << shift) >= 0;
+
+                    if (shift==0 ? !mover : mover)
+                    {
+                        arreglo[i - j] = arreglo[i];
+                    }
+                    else
+                    {
+                        temp[j++] = Convert.ToInt32(arreglo[i]);
+                    }
+                }
+                Array.Copy(temp, 0, arreglo,arreglo.Length - j, j);
+            }
+        }
+
+        public static void QuickSort<T>(this T[] vector, int primero, int ultimo) where T : IComparable<T>
+        {
+            int[] Ctrl = { primero, ultimo, ((primero + ultimo) / 2) };
+            int pivote;
+            //central = (primero + ultimo) / 2;
+            pivote = Convert.ToInt32(vector[Ctrl[2]]);
+            //i = primero;
+            //j = ultimo;
+            do
+            {
+                while (Convert.ToInt32(vector[Ctrl[0]]) < pivote) Ctrl[0]++;
+                while (Convert.ToInt32(vector[Ctrl[1]]) > pivote) Ctrl[1]--;
+                if (Ctrl[0] <= Ctrl[1])
+                {
+                    int temp;
+                    temp = Convert.ToInt32(vector[Ctrl[0]]);
+                    vector[Ctrl[0]] = vector[Ctrl[1]];
+                    //
+                    T newval = (T)(Object)temp;
+                    vector[Ctrl[1]] = newval;
+                    Ctrl[0]++;
+                    Ctrl[1]--;
+                }
+            } while (Ctrl[0] <= Ctrl[1]);
+
+            if (primero < Ctrl[1])
+                vector.QuickSort(primero, Ctrl[1]);
+
+            if (Ctrl[0] < ultimo)
+                vector.QuickSort(Ctrl[0], ultimo);
         }
 
 

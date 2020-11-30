@@ -13,7 +13,7 @@ namespace EDU4_Algoritmos
             int[] arreglo = { 4, 8, 90, 23, 1, 67, 54, 16 };
             arreglo.Imprimir();
             Console.WriteLine();
-            arreglo.Burbuja();
+            arreglo.QuickSort(0, arreglo.Length - 1);
             arreglo.Imprimir();
             Console.ReadKey();
 
