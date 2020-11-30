@@ -4,6 +4,12 @@ namespace EDU4_Algoritmos
 {
     public static class MetodosOrdenamiento
     {
+        /// <summary>
+        /// Metodo para llenar un arreglo
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arreglo"></param>
+        /// /// <param name="tamaño"></param>
         public static void Llenar<T>(this T[] arreglo) where T : IComparable<T> 
         {
             Random rdm = new Random();

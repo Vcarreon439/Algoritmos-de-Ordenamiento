@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace EDU4_Algoritmos
 {
@@ -10,13 +7,51 @@ namespace EDU4_Algoritmos
     {
         static void Main(string[] args)
         {
-            int[] arreglo = new int[50];
+            
+            //Region de creacion del arreglo
+            Stopwatch timeMeasure = new Stopwatch();
+            timeMeasure.Start();
+            //500, 1000, 10000
+            int[] arreglo = new int[500];
             arreglo.Llenar();
+            timeMeasure.Stop();
+            Console.WriteLine("Creacion del Arreglo");
+            Console.WriteLine($"Tiempo: {timeMeasure.Elapsed.TotalMilliseconds} ms");
+            Console.WriteLine($"Precision: {(1.0 / Stopwatch.Frequency).ToString("E")} segundos");
+
+            Console.WriteLine("_________________________________________");
+            //arreglo.Imprimir();
+            Console.WriteLine("_________________________________________");
+
+            timeMeasure = new Stopwatch();
+            timeMeasure.Start();
+            arreglo.RadixSort();
+            timeMeasure.Stop();
+            Console.WriteLine("Acomdo del arreglo");
+            Console.WriteLine($"Tiempo: {timeMeasure.Elapsed.TotalMilliseconds} ms");
+            Console.WriteLine($"Precision: {(1.0 / Stopwatch.Frequency).ToString("E")} segundos");
+
+            Console.WriteLine("_________________________________________");
+            //arreglo.Imprimir();
+            Console.WriteLine("_________________________________________");
+
+            /*if (Stopwatch.IsHighResolution)
+                Console.WriteLine("Alta precisión");
+            else
+                Console.WriteLine("Baja precisión");*/
+
+
+
+
+            Console.ReadKey();
+
+
+            /*
             arreglo.Imprimir();
             Console.WriteLine();
             arreglo.QuickSort(0, arreglo.Length - 1);
             arreglo.Imprimir();
-            Console.ReadKey();
+            Console.ReadKey();*/
 
         }
     }
