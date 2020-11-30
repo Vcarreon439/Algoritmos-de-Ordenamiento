@@ -10,7 +10,8 @@ namespace EDU4_Algoritmos
     {
         static void Main(string[] args)
         {
-            int[] arreglo = { 4, 8, 90, 23, 1, 67, 54, 16 };
+            int[] arreglo = new int[50];
+            arreglo.Llenar();
             arreglo.Imprimir();
             Console.WriteLine();
             arreglo.QuickSort(0, arreglo.Length - 1);

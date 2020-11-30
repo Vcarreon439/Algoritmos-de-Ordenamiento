@@ -4,6 +4,18 @@ namespace EDU4_Algoritmos
 {
     public static class MetodosOrdenamiento
     {
+        public static void Llenar<T>(this T[] arreglo) where T : IComparable<T> 
+        {
+            Random rdm = new Random();
+
+            for (int i = 0; i < arreglo.Length; i++)
+            {
+                T newval = (T)(Object)rdm.Next(0,1000);
+                arreglo[i] = newval;
+            }
+        }
+
+
         /// <summary>
         /// Método Burbuja implementado como extensión
         /// </summary>
