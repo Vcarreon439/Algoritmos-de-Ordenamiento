@@ -87,9 +87,16 @@ namespace EDU4_Algoritmos
             }
         }
 
+        /// <summary>
+        /// Metodo de ordenamiento RadixSort
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arreglo">Arreglo que se va a ordenar</param>
         public static void RadixSort<T>(this T[] arreglo) where T : IComparable<T> 
         {
+            //Arreglo temporal del mismo tamaño que el del original
             int[] temp = new int[arreglo.Length];
+
 
             for (int shift = 31; shift > -1; shift --)
             {
@@ -112,36 +119,44 @@ namespace EDU4_Algoritmos
             }
         }
 
+
+        /// <summary>
+        /// Metodo QuickSort de ordenamiento.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="vector">Arreglo a ordenar</param>
+        /// <param name="primero">Desde</param>
+        /// <param name="ultimo">Hasta</param>
         public static void QuickSort<T>(this T[] vector, int primero, int ultimo) where T : IComparable<T>
         {
-            int[] Ctrl = { primero, ultimo, ((primero + ultimo) / 2) };
-            int pivote;
-            //central = (primero + ultimo) / 2;
-            pivote = Convert.ToInt32(vector[Ctrl[2]]);
-            //i = primero;
-            //j = ultimo;
+            //Variables de control
+            int i = primero, j = ultimo, central = (primero + ultimo) / 2;
+            //Elemento de en "medio"
+            int pivote = Convert.ToInt32(vector[central]);
+
+            //Ciclo para realizar el ordenamiento
             do
             {
-                while (Convert.ToInt32(vector[Ctrl[0]]) < pivote) Ctrl[0]++;
-                while (Convert.ToInt32(vector[Ctrl[1]]) > pivote) Ctrl[1]--;
-                if (Ctrl[0] <= Ctrl[1])
+                //While para determinar la cantidad de movimientos en los elementos menores a pivote
+                while (Convert.ToInt32(vector[i]) < pivote) i++;
+                //While para determinar la cantidad de movimientos en los elementos mayores a pivote
+                while (Convert.ToInt32(vector[j]) > pivote) j--;
+
+                if (i <= j)
                 {
-                    int temp;
-                    temp = Convert.ToInt32(vector[Ctrl[0]]);
-                    vector[Ctrl[0]] = vector[Ctrl[1]];
-                    //
-                    T newval = (T)(Object)temp;
-                    vector[Ctrl[1]] = newval;
-                    Ctrl[0]++;
-                    Ctrl[1]--;
+                    //Enroque
+                    vector.Cambio(i, j);
+                    i++;
+                    j--;
                 }
-            } while (Ctrl[0] <= Ctrl[1]);
+            } while (i <= j);
 
-            if (primero < Ctrl[1])
-                vector.QuickSort(primero, Ctrl[1]);
+            if (primero < j)
+                vector.QuickSort(primero, j);
 
-            if (Ctrl[0] < ultimo)
-                vector.QuickSort(Ctrl[0], ultimo);
+            if (i < ultimo)
+                vector.QuickSort(i, ultimo);
+
         }
 
 

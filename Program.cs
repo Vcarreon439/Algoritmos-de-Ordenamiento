@@ -12,7 +12,7 @@ namespace EDU4_Algoritmos
             Stopwatch timeMeasure = new Stopwatch();
             timeMeasure.Start();
             //500, 1000, 10000
-            int[] arreglo = new int[500];
+            int[] arreglo = new int[200];
             arreglo.Llenar();
             timeMeasure.Stop();
             Console.WriteLine("Creacion del Arreglo");
@@ -25,14 +25,14 @@ namespace EDU4_Algoritmos
 
             timeMeasure = new Stopwatch();
             timeMeasure.Start();
-            arreglo.RadixSort();
+            arreglo.QuickSort(0, arreglo.Length-1);
             timeMeasure.Stop();
             Console.WriteLine("Acomdo del arreglo");
             Console.WriteLine($"Tiempo: {timeMeasure.Elapsed.TotalMilliseconds} ms");
             Console.WriteLine($"Precision: {(1.0 / Stopwatch.Frequency).ToString("E")} segundos");
 
             Console.WriteLine("_________________________________________");
-            //arreglo.Imprimir();
+            arreglo.Imprimir();
             Console.WriteLine("_________________________________________");
 
             /*if (Stopwatch.IsHighResolution)
