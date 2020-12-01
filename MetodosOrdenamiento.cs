@@ -16,10 +16,23 @@ namespace EDU4_Algoritmos
 
             for (int i = 0; i < arreglo.Length; i++)
             {
-                T newval = (T)(Object)rdm.Next(0,1000);
+                T newval = (T)(Object)rdm.Next(0, 100000);
                 arreglo[i] = newval;
             }
         }
+
+        public static void Llenar<T>(this T[] arreglo, int tamaño) where T : IComparable<T>
+        {
+            arreglo = new T[tamaño];
+            Random rdm = new Random();
+
+            for (int i = 0; i < arreglo.Length; i++)
+            {
+                T newval = (T)(Object)rdm.Next(0, tamaño);
+                arreglo[i] = newval;
+            }
+        }
+
 
 
         /// <summary>
@@ -29,15 +42,23 @@ namespace EDU4_Algoritmos
         /// <param name="arreglo">Arreglo a ordenar</param>
         public static void Burbuja<T>(this T[] arreglo) where T : IComparable<T>
         {
+            //int iteracion = 0;
+            //int cambios = 0;
+
             for (int i = 0; i < arreglo.Length; i++)
             {
+                //Console.WriteLine($"Iteracion #{iteracion}, cambios {cambios}");
+                
                 for (int j = 0; j < arreglo.Length - 1; j++)
                 {
                     if (arreglo[j].CompareTo(arreglo[j + 1]) > 0)
                     {
                         arreglo.Cambio(j, j+1);
+                        //cambios++;
                     }
+                    //arreglo.Imprimir();
                 }
+                //iteracion++;
             }
         }
 
@@ -204,8 +225,12 @@ namespace EDU4_Algoritmos
         /// <param name="arreglo">Arreglo a imprimir</param>
         public static void Imprimir<T>(this T[] arreglo) where T : IComparable<T> 
         {
+            Console.WriteLine();
+
             foreach (var item in arreglo)
-                Console.WriteLine(item);
+                Console.Write($"{item} ");
+
+            Console.WriteLine();
         }
 
 
