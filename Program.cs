@@ -7,7 +7,7 @@ namespace EDU4_Algoritmos
     {
         static void Main(string[] args)
         {
-            int[] Predefinido = { 15, 67, 08, 16, 44, 27, 12, 35 };
+            int[] Predefinido = { 4,8,90,32,1,67,54,16};
             Predefinido.Imprimir();
             Console.WriteLine("________________________");
             Predefinido.Burbuja();
