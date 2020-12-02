@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace EDU4_Algoritmos
 {
+
     /// <summary>
     /// Para futuras implementaciones.
     /// </summary>
     public static class Menu
     {
+        static void MenuL1() 
         public static void MenuL1(ref Lista_Enlazad lista) 
         {
             bool rep = true;
@@ -101,7 +103,7 @@ namespace EDU4_Algoritmos
                     NodoLista nodo = new NodoLista(arreglo, nombre);
                     list.InsertarALaCabeza(nodo);
                     rep = false;
-                }
+    }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Menu.cs" />
     <Compile Include="ListaEnlazada\Lista_Enlazada.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MetodosOrdenamiento.cs" />
