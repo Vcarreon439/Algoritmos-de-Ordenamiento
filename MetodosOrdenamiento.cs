@@ -5,23 +5,76 @@ namespace EDU4_Algoritmos
     public static class MetodosOrdenamiento
     {
         /// <summary>
+        /// Metodo para llenar un arreglo
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arreglo"></param>
+        /// /// <param name="tamaño"></param>
+        public static void Llenar<T>(this T[] arreglo) where T : IComparable<T> 
+        {
+            Random rdm = new Random();
+
+            for (int i = 0; i < arreglo.Length; i++)
+            {
+                T newval = (T)(Object)rdm.Next(0, 100000);
+                arreglo[i] = newval;
+            }
+        }
+
+        public static void Llenar<T>(this T[] arreglo, int tamaño) where T : IComparable<T>
+        {
+            arreglo = new T[tamaño];
+            Random rdm = new Random();
+
+            for (int i = 0; i < arreglo.Length; i++)
+            {
+                T newval = (T)(Object)rdm.Next(0, tamaño);
+                arreglo[i] = newval;
+            }
+        }
+
+
+
+        /// <summary>
         /// Método Burbuja implementado como extensión
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="arreglo">Arreglo a ordenar</param>
         public static void Burbuja<T>(this T[] arreglo) where T : IComparable<T>
         {
+            int iteracion = 0;
+            int cambios = 0;
+
             for (int i = 0; i < arreglo.Length; i++)
             {
-                for (int j = 0; j < arreglo.Length - 1; j++)
+                Console.WriteLine($"Iteracion #{iteracion}, cambios {cambios}");
+                Console.WriteLine("_______________________________________________________");
+
+                for (int j = arreglo.Length - 1; j > i; j--)
                 {
-                    if (arreglo[j].CompareTo(arreglo[j + 1]) > 0)
+
+                    bool comp = false;
+
+                    if (arreglo[j - 1].CompareTo(arreglo[j]) > 0)
                     {
-                        arreglo.Cambio(j, j+1);
+                        comp = true;
+                        arreglo.Cambio(j, j - 1);
+                        cambios++;
+                        Console.WriteLine($"Hay intercambio? {arreglo[j]} > {arreglo[j - 1]} | {comp}");
                     }
+                    else
+                    {
+                        Console.WriteLine($"Hay intercambio? {arreglo[j - 1]} > {arreglo[j]} | {comp}");
+                    }
+
                 }
+                Console.WriteLine();
+                arreglo.ImprimirEnL();
+                Console.WriteLine();
+                iteracion++;
             }
         }
+    
 
         /// <summary>
         /// Intercambia 2 elementos de un arreglo.
@@ -54,24 +107,39 @@ namespace EDU4_Algoritmos
 
             while (d >= 1)
             {
+                bool happen = false;
+
                 for (var i = d; i < arreglo.Length; i++)
                 {
                     var j = i;
-
-                    while ((j >= d) && (arreglo.EsMayorQue(j,j-d)))
+                    while ((j >= d) && (arreglo.EsMayorQue(j, j - d)))
                     {
+                        happen = true;
                         arreglo.Cambio(j, (j - d));
                         j = j - d;
                     }
                 }
 
+                if (happen)
+                {
+                    Console.Write("La ordenacion produce: ");
+                    arreglo.Imprimir();
+                    Console.WriteLine();
+                }
                 d = d / 2;
             }
         }
 
+        /// <summary>
+        /// Metodo de ordenamiento RadixSort
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arreglo">Arreglo que se va a ordenar</param>
         public static void RadixSort<T>(this T[] arreglo) where T : IComparable<T> 
         {
+            //Arreglo temporal del mismo tamaño que el del original
             int[] temp = new int[arreglo.Length];
+
 
             for (int shift = 31; shift > -1; shift --)
             {
@@ -94,36 +162,44 @@ namespace EDU4_Algoritmos
             }
         }
 
+
+        /// <summary>
+        /// Metodo QuickSort de ordenamiento.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="vector">Arreglo a ordenar</param>
+        /// <param name="primero">Desde</param>
+        /// <param name="ultimo">Hasta</param>
         public static void QuickSort<T>(this T[] vector, int primero, int ultimo) where T : IComparable<T>
         {
-            int[] Ctrl = { primero, ultimo, ((primero + ultimo) / 2) };
-            int pivote;
-            //central = (primero + ultimo) / 2;
-            pivote = Convert.ToInt32(vector[Ctrl[2]]);
-            //i = primero;
-            //j = ultimo;
+            //Variables de control
+            int i = primero, j = ultimo, central = (primero + ultimo) / 2;
+            //Elemento de en "medio"
+            int pivote = Convert.ToInt32(vector[central]);
+
+            //Ciclo para realizar el ordenamiento
             do
             {
-                while (Convert.ToInt32(vector[Ctrl[0]]) < pivote) Ctrl[0]++;
-                while (Convert.ToInt32(vector[Ctrl[1]]) > pivote) Ctrl[1]--;
-                if (Ctrl[0] <= Ctrl[1])
+                //While para determinar la cantidad de movimientos en los elementos menores a pivote
+                while (Convert.ToInt32(vector[i]) < pivote) i++;
+                //While para determinar la cantidad de movimientos en los elementos mayores a pivote
+                while (Convert.ToInt32(vector[j]) > pivote) j--;
+
+                if (i <= j)
                 {
-                    int temp;
-                    temp = Convert.ToInt32(vector[Ctrl[0]]);
-                    vector[Ctrl[0]] = vector[Ctrl[1]];
-                    //
-                    T newval = (T)(Object)temp;
-                    vector[Ctrl[1]] = newval;
-                    Ctrl[0]++;
-                    Ctrl[1]--;
+                    //Enroque
+                    vector.Cambio(i, j);
+                    i++;
+                    j--;
                 }
-            } while (Ctrl[0] <= Ctrl[1]);
+            } while (i <= j);
 
-            if (primero < Ctrl[1])
-                vector.QuickSort(primero, Ctrl[1]);
+            if (primero < j)
+                vector.QuickSort(primero, j);
 
-            if (Ctrl[0] < ultimo)
-                vector.QuickSort(Ctrl[0], ultimo);
+            if (i < ultimo)
+                vector.QuickSort(i, ultimo);
+
         }
 
 
@@ -171,11 +247,19 @@ namespace EDU4_Algoritmos
         /// <param name="arreglo">Arreglo a imprimir</param>
         public static void Imprimir<T>(this T[] arreglo) where T : IComparable<T> 
         {
+            Console.WriteLine();
+
             foreach (var item in arreglo)
-                Console.WriteLine(item);
+                Console.Write($"{item} ");
+
+            Console.WriteLine();
         }
 
-
+        public static void ImprimirEnL<T>(this T[] arreglo) where T : IComparable<T>
+        {
+            foreach (var item in arreglo)
+                Console.Write($"{item} ");
+        }
 
     }
 }

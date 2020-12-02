@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
 
 namespace EDU4_Algoritmos
 {
@@ -10,13 +8,11 @@ namespace EDU4_Algoritmos
     {
         static void Main(string[] args)
         {
-            int[] arreglo = { 4, 8, 90, 23, 1, 67, 54, 16 };
-            arreglo.Imprimir();
-            Console.WriteLine();
-            arreglo.QuickSort(0, arreglo.Length - 1);
-            arreglo.Imprimir();
-            Console.ReadKey();
-
+            int[] aaa = { 5, 3, 4, 6, 6, 21 };
+            aaa.Burbuja();
+            Console.Read();
         }
     }
 }
+
+
